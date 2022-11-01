@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JdbcToolBoss {
+public class JdbcToolBossJtdsDriver {
  
   public void connect(String[] args) {
 
@@ -28,11 +28,13 @@ public class JdbcToolBoss {
           // jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster
           String user = "sa";
           String pass = "sps12345";
-          System.out.println("Welcome to package"); 
-          // Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
-          Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+          System.out.println("ToolBoss with jTDS jdbc driver"); 
+
+          Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
+          // Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
           // url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
-          String jdbcURL = "jdbc:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
+          // String jdbcURL = "jdbc:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
+          String jdbcURL = "jdbc:jtds:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
           // String jdbcURL = "jdbc:jtds:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
           conn = DriverManager.getConnection(jdbcURL, user, pass);
           // String jdbcURL = "jdbc:sqlserver://192.168.1.172:53000;databaseName=sample;selectMethod=cursor"; 

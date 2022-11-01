@@ -12,71 +12,32 @@ public class JdbcAllTests {
  
   public static void main(String[] args) {
 
-      Connection conn = null;
       // https://stackoverflow.com/questions/26269193/how-to-call-a-method-function-from-another-class
       // B b; // A reference to B
       // b = new B(); // Creating object of class B
       // b.doSomething();  // Calling a method contained in class B from class A
-      // JdbcToolBoss tb;
-      // tb = new JdbcToolBoss();
-      // String[] tb_args = {"aa", "bb"};
-      // tb.connect(tb_args);
-      try {
-        // MSSQL_DRIVER = "net.sourceforge.jtds.jdbc.Driver"
-        // # busche-sql.BUSCHE-CNC.com (10.1.2.74)
-        // host = 'busche-sql'
-        // port = '1433'
-        // user = 'sa'
-        // password = 'buschecnc1'
-        // https://stackoverflow.com/questions/32766114/sql-server-jdbc-error-on-java-8-the-driver-could-not-establish-a-secure-connect
-        // String dbURL = "jdbc:sqlserver://localhost\\sqlexpress";
-        // String user = "sa";
-        // String pass = "secret";
-          // String dbURL = "jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
-          // jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster
-          String user = "sa";
-          String pass = "sps12345";
-          System.out.println("Welcome to package"); 
-          // Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
-          Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-          // url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
-          String jdbcURL = "jdbc:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
-          // String jdbcURL = "jdbc:jtds:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
-          conn = DriverManager.getConnection(jdbcURL, user, pass);
-          // String jdbcURL = "jdbc:sqlserver://192.168.1.172:53000;databaseName=sample;selectMethod=cursor"; 
-          // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-          // DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());          
-          Statement statement = conn.createStatement();
-          ResultSet rs = statement.executeQuery("select top 5 * from items");
-          while(rs.next())
-          {
-            System.out.println("name = " + rs.getString("ITEMNUMBER"));
-            System.out.println("id = " + rs.getString("ITEMGROUP"));
-          }
+      AzureDwMsDriver adw;
+      adw = new AzureDwMsDriver();
+      String[] adw_args = {"aa", "bb"}; // These are not used
+      adw.connect(adw_args);
+      JdbcToolBossMsDriver msTb;
+      msTb = new JdbcToolBossMsDriver();
+      String[] tb_args = {"aa", "bb"}; // These are not used
+      msTb.connect(tb_args);
+      JdbcToolBossJtdsDriver jtdsTb;
+      jtdsTb = new JdbcToolBossJtdsDriver();
+      String[] tb_jtds_args = {"aa", "bb"}; // These are not used
+      jtdsTb.connect(tb_jtds_args);
 
 
-          // conn = DriverManager.getConnection(dbURL, user, pass);
-          // if (conn != null) {
-          //     DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
-          //     System.out.println("Driver name: " + dm.getDriverName());
-          //     System.out.println("Driver version: " + dm.getDriverVersion());
-          //     System.out.println("Product name: " + dm.getDatabaseProductName());
-          //     System.out.println("Product version: " + dm.getDatabaseProductVersion());
-          // }
+        // conn = DriverManager.getConnection(dbURL, user, pass);
+        // if (conn != null) {
+        //     DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+        //     System.out.println("Driver name: " + dm.getDriverName());
+        //     System.out.println("Driver version: " + dm.getDriverVersion());
+        //     System.out.println("Product name: " + dm.getDatabaseProductName());
+        //     System.out.println("Product version: " + dm.getDatabaseProductVersion());
+        // }
 
-      } catch (SQLException ex) {
-          ex.printStackTrace();
-      } catch (ClassNotFoundException ex) {
-        ex.printStackTrace();
-      }
-      finally {
-          try {
-              if (conn != null && !conn.isClosed()) {
-                  conn.close();
-              }
-          } catch (SQLException ex) {
-              ex.printStackTrace();
-          }
-      }
   }
 }
