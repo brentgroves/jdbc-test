@@ -16,6 +16,18 @@ public class JdbcAllTests {
       // B b; // A reference to B
       // b = new B(); // Creating object of class B
       // b.doSomething();  // Calling a method contained in class B from class A
+      MySqlDW mgdw;
+      mgdw = new MySqlDW();
+      String[] mgdw_args = {"aa", "bb"}; // These are not used
+      mgdw.connect(mgdw_args);
+      Cribmaster cm;
+      cm = new Cribmaster();
+      String[] cm_args = {"aa", "bb"}; // These are not used
+      cm.connect(cm_args);
+      ToolListJtdsDriver jtdsTl;
+      jtdsTl = new ToolListJtdsDriver();
+      String[] jtdstl_args = {"aa", "bb"}; // These are not used
+      jtdsTl.connect(jtdstl_args);
       AzureDwMsDriver adw;
       adw = new AzureDwMsDriver();
       String[] adw_args = {"aa", "bb"}; // These are not used
