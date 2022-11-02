@@ -61,7 +61,7 @@ public class RestrictionsToDW {
           String pass3 = "password";
           System.out.println("MySql DW with mysql-connector jdbc driver"); 
           Class dbDriver3 = Class.forName("com.mysql.cj.jdbc.Driver");  
-          String jdbcURL3 = "jdbc:mysql://reports03:31008/mysql";  
+          String jdbcURL3 = "jdbc:mysql://reports03.busche-cnc.com:31008/mysql";  
           conn3 = DriverManager.getConnection(jdbcURL3, user3, pass3);
 
           Statement statement3 = conn3.createStatement();
