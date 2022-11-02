@@ -1,4 +1,4 @@
-package mobex.mssql;  
+package mobex.test;  
 // https://razorsql.com/articles/ms_sql_server_jdbc_connect.html
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JdbcToolBossJtdsDriver {
+public class AzureDwMsDriver {
  
   public void connect(String[] args) {
 
@@ -26,26 +26,30 @@ public class JdbcToolBossJtdsDriver {
         // String pass = "secret";
           // String dbURL = "jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
           // jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster
-          String user = "sa";
-          String pass = "sps12345";
-          System.out.println("ToolBoss with jTDS jdbc driver"); 
-
-          Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
-          // Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+          String user = "mgadmin";
+          String pass = "WeDontSharePasswords1!";
+          System.out.println("Azure DW with Microsoft jdbc driver"); 
+          // url=jdbc:sqlserver://$AZ_DATABASE_NAME.database.windows.net:1433;database=demo;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+          // user=demo@$AZ_DATABASE_NAME
+          // password=$AZ_SQL_SERVER_PASSWORD
+          // Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
+          Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
           // url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
-          // String jdbcURL = "jdbc:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
-          String jdbcURL = "jdbc:jtds:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
+          // String jdbcURL = "jdbc:sqlserver://mgsqlmi.public.48d444e7f69b.database.windows.net:3342;user=mgadmin@mgsqlmi;password=WeDontSharePasswords1!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.48d444e7f69b.database.windows.net;loginTimeout=30;";
+          String jdbcURL = "jdbc:sqlserver://mgsqlmi.public.48d444e7f69b.database.windows.net:3342;databaseName=mgdw;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.48d444e7f69b.database.windows.net;loginTimeout=30;";
+          // String jdbcURL = "jdbc:sqlserver://mgsqlmi.public.48d444e7f69b.database.windows.net:3342;databaseName=mgdw;encrypt=true;trustServerCertificate=true;";
+          // String jdbcURL = "jdbc:jtds:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
           // String jdbcURL = "jdbc:jtds:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
           conn = DriverManager.getConnection(jdbcURL, user, pass);
           // String jdbcURL = "jdbc:sqlserver://192.168.1.172:53000;databaseName=sample;selectMethod=cursor"; 
           // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
           // DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());          
           Statement statement = conn.createStatement();
-          ResultSet rs = statement.executeQuery("select top 5 * from items");
+          ResultSet rs = statement.executeQuery("SELECT top 5 * from Plex.account_period_balance");
           while(rs.next())
           {
-            System.out.println("name = " + rs.getString("ITEMNUMBER"));
-            System.out.println("id = " + rs.getString("ITEMGROUP"));
+            System.out.println("pcn = " + rs.getInt("pcn"));
+            System.out.println("account_no = " + rs.getString("account_no"));
           }
           // conn = DriverManager.getConnection(dbURL, user, pass);
           // if (conn != null) {

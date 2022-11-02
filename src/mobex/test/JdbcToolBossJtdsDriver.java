@@ -1,4 +1,4 @@
-package mobex.mssql;  
+package mobex.test;  
 // https://razorsql.com/articles/ms_sql_server_jdbc_connect.html
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JdbcSQLServerConnection {
+public class JdbcToolBossJtdsDriver {
  
-  public static void main(String[] args) {
+  public void connect(String[] args) {
 
       Connection conn = null;
 
@@ -20,29 +20,32 @@ public class JdbcSQLServerConnection {
         // port = '1433'
         // user = 'sa'
         // password = 'buschecnc1'
-
+        // https://stackoverflow.com/questions/32766114/sql-server-jdbc-error-on-java-8-the-driver-could-not-establish-a-secure-connect
         // String dbURL = "jdbc:sqlserver://localhost\\sqlexpress";
         // String user = "sa";
         // String pass = "secret";
           // String dbURL = "jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
           // jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster
           String user = "sa";
-          String pass = "buschecnc1";
-          System.out.println("Welcome to package"); 
-          // Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
-          Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-          String jdbcURL = "jdbc:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
+          String pass = "sps12345";
+          System.out.println("ToolBoss with jTDS jdbc driver"); 
+
+          Class dbDriver = Class.forName("net.sourceforge.jtds.jdbc.Driver");
+          // Class dbDriver = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+          // url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
+          // String jdbcURL = "jdbc:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
+          String jdbcURL = "jdbc:jtds:sqlserver://10.1.3.80:1433;databaseName=sps;encrypt=true;trustServerCertificate=true;";
           // String jdbcURL = "jdbc:jtds:sqlserver://10.1.2.74:1433;databaseName=cribmaster";
           conn = DriverManager.getConnection(jdbcURL, user, pass);
           // String jdbcURL = "jdbc:sqlserver://192.168.1.172:53000;databaseName=sample;selectMethod=cursor"; 
           // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
           // DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());          
           Statement statement = conn.createStatement();
-          ResultSet rs = statement.executeQuery("select * from employee");
+          ResultSet rs = statement.executeQuery("select top 5 * from items");
           while(rs.next())
           {
-            System.out.println("name = " + rs.getString("name"));
-            System.out.println("id = " + rs.getInt("id"));
+            System.out.println("name = " + rs.getString("ITEMNUMBER"));
+            System.out.println("id = " + rs.getString("ITEMGROUP"));
           }
           // conn = DriverManager.getConnection(dbURL, user, pass);
           // if (conn != null) {

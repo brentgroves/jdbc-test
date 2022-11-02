@@ -2,8 +2,7 @@ https://docs.oracle.com/javase/tutorial/deployment/jar/appman.html
 
 # compile
 pushd ~/src/jdbc-test/bin
-rm JdbcAllTests.jar
-rm -rf mobex
+./build.sh
 <!-- https://www.dummies.com/article/technology/programming-web-design/java/how-to-use-the-javac-command-172116/ -->
 <!-- https://www.dummies.com/article/technology/programming-web-design/java/how-to-use-the-javac-command-172116/ -->
 javac -verbose -d . ../src/mobex/mssql/*.java  
